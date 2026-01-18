@@ -82,3 +82,25 @@ h2 {
         font-size: 11px;
     }
 }
+
+/* Dark Mode */
+.dark {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+.dark .container {
+    background-color: #1e1e1e;
+    border-color: #444;
+}
+
+.dark h1,
+.dark h2,
+.dark .intro,
+.dark .subheading {
+    color: #ffffff;
+}
+
+.dark h2 {
+    border-bottom-color: #555;
+}
