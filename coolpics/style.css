@@ -1,0 +1,26 @@
+/* Mobile First Styles */
+img {
+  width: 100%; /* Responsive width */
+  max-width: 300px; 
+  height: 300px;
+  object-fit: cover; /* Keeps aspect ratio, clips edges */
+  display: block;
+  margin: 10px auto;
+}
+
+/* Hide navigation links on mobile as per instructions */
+nav ul {
+  display: none;
+}
+
+@media screen and (min-width: 700px) {
+  nav ul {
+    display: flex; /* Show menu on larger screens */
+    list-style: none;
+    gap: 20px;
+  }
+  
+  #menu-button {
+    display: none; /* Hide toggle button on desktop */
+  }
+}
