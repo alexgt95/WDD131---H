@@ -14,6 +14,10 @@ footer {
   padding: 1rem;
   background-color: lightblue;
 }
+main {
+    display: grid;
+    grid-template-columns: 1fr;
+}
 h1 {
     text-align: center;
 }
@@ -49,6 +53,22 @@ footer {
 
 
 @media screen and (min-width: 700px) {
-
+    main {
+        grid-template-columns: 1fr 1fr;
+    }
+    .menu-btn {
+        display: none;
+    }
+    nav a {
+        display: inline;
+    }
+    nav {
+        text-align: right;
+    }
 }
-          
+  
+@media screen and (min-width: 1000px) {
+    main {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
