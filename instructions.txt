@@ -1,0 +1,2 @@
+use the W3 HTML https://validator.w3.org/ Links to an external site. and CSS https://jigsaw.w3.org/css-validator/ Links to an external site.validators
+In this class, you need to include at least the following meta tags in the head section: viewport, description, author, and charset.
