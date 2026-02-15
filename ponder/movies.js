@@ -1,4 +1,3 @@
-
 const movies = [
       {
         title: "Spider-Man: Into the Spider-Verse",
