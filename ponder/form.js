@@ -64,7 +64,7 @@ function submitHandler(event) {
   if (paymentSelect.value === 'creditCard') {
     // Check if it's numeric and valid in one go
     
-      if (!/^\d{16}$/.test(cardNum)) {
+      if (!/^\d{16}$/.test(cardNum)) { 
       errorMsg += 'Card number must be 16 digits\n';
       } else if (!isCardNumberValid(cardNum)) {
         errorMsg += 'Card number is not valid\n';
