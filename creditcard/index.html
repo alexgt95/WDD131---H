@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="creditcard.js" defer></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="form-container">
+      <!-- Card Back (Placed first so it sits behind in some layouts, or we use z-index) -->
+      <div class="card card-back">
+        <div class="magnetic-strip"></div>
+        <div class="cvv-group">
+          <label>CVC/CVV</label>
+          <input type="text" placeholder="xxx" />
+        </div>
+      </div>
+
+      <!-- Card Front -->
+      <div class="card card-front" id="cardFront">
+        <div class="total-display">TOTAL: $199</div>
+        <div class="card-logo">💳</div>
+
+        <div class="input-group card-number">
+          <label>CARD NUMBER</label>
+          <input type="text" id="credit-card-number" name="credit-card-number" placeholder="Enter 16 digits" value="1234 5678 9101 1020" required/>
+        </div>
+
+        <div class="input-group card-holder">
+          <label>CARD HOLDER NAME</label>
+          <input type="text" id="card-holder-name" name="card-holder-name" placeholder="Enter name" value="John Doe" required/>
+        </div>
+
+        <div class="input-group expiration">
+          <label>EXPIRATION</label>
+          <div class="exp-inputs">
+            <input type="text" placeholder="MM" />
+            <input type="text" placeholder="YY" />
+          </div>
+        </div>
+      </div>
+
+      <button class="submit-btn">Submit</button>
+    </div>
+  </body>
+</html>
