@@ -1,12 +1,15 @@
 // Get references to elements matching the HTML structure
+//document.querySelector() is like pointing at something in that room and saying "that one — I want to be able to refer to it later." We store that reference in a variable (like cardFront or submitBtn) so we can use it later without having to go find it again every time.
 const cardFront = document.querySelector('#cardFront');
 const submitBtn = document.querySelector('.submit-btn');
+// Creating the error message area
 const errorContainer = document.createElement('div');
 errorContainer.id = 'error-msg';
 errorContainer.style.cssText = 'color:red; font-size:13px; grid-column:1/5; grid-row:4; align-self:center;';
-document.querySelector('.form-container').appendChild(errorContainer);
+document.querySelector('.form-container').appendChild(errorContainer); //It's essentially an invisible placeholder, waiting to be filled by displayError() when something goes wrong.
 
 function displayError(msg) {
+  // We use this throughout the code to either show an error or wipe the slate clean.
   errorContainer.textContent = msg;
 }
 
@@ -21,8 +24,8 @@ function submitHandler(event) {
   displayError('');
 
   // Card number — strip spaces before validating
-  const cardNumberInput = document.querySelector('#credit-card-number');
-  const cardNum = cardNumberInput.value.replace(/\s+/g, '').trim();
+  const cardNumberInput = document.querySelector('#credit-card-number'); //we use querySelector to find the input by its ID and store a reference to it in cardNumberInput.
+  const cardNum = cardNumberInput.value.replace(/\s+/g, '').trim(); //Then we take the value of that input, remove any spaces (in case the user entered them for readability), and trim any extra whitespace just in case to store in cardNum for validation.
 
   if (!/^\d{16}$/.test(cardNum)) {
     errorMsg += 'Card number must be 16 digits.\n';
