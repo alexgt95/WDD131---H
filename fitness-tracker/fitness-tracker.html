@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+		<meta charset="utf-8" />
+		<title>FitLog Site Plan</title>
+		<link type="text/css" rel="stylesheet" href="site-plan.css" />
+	</head>
+ 
+	<body>
+		<header>
+			<h1>FitLog Site Plan</h1>
+			<h2>FirstName LastName</h2>
+			<h2>WDD 131-A2</h2>
+		</header>
+		<main>
+			<hr />
+			<h2>Overview</h2>
+			<h3>Purpose</h3>
+			<p>
+				FitLog helps users plan and track their personal workouts. It lets them
+				log exercises, count reps in real time, and time their rest periods —
+				all in one clean, easy-to-use interface. The goal is to replace a paper
+				workout log with a simple, interactive digital alternative.
+			</p>
+ 
+			<h3>Audience</h3>
+			<p>
+				Students, gym beginners, and home workout enthusiasts who want a
+				straightforward way to track their fitness sessions without the
+				complexity of a full fitness app. The site is designed for anyone
+				comfortable using a basic website on their phone or laptop during a
+				workout.
+			</p>
+ 
+			<h3>Dynamic elements</h3>
+			<p>
+				JavaScript will power two core interactive features. First, a
+				<strong>live rep counter</strong> with plus and minus buttons that
+				tracks reps per set and keeps a running session total, with a "Log Set"
+				button that records the result to a session table. Second, a
+				<strong>live countdown rest timer</strong> that automatically starts
+				when a set is logged, counting down from 60 seconds and turning red
+				during the final 10 seconds to signal urgency. A reset button will
+				clear both the counter and timer for the next exercise.
+			</p>
+ 
+			<hr />
+			<h2>Branding</h2>
+			<h3>Website Logo</h3>
+			<img src="fitness-tracker-logo.png" alt="FitLog logo" />
+ 
+			<hr />
+			<h2>Style Guide</h2>
+ 
+			<h3>Color Palette</h3>
+			Palette URL:
+			<a
+				href="https://coolors.co/396e94-e7c24f-a43312-381d2a-aabd8c"
+				target="_blank"
+				>https://coolors.co/396e94-e7c24f-a43312-381d2a-aabd8c</a
+			>
+ 
+			<table class="colors">
+				<tbody>
+					<tr>
+						<th>Primary</th>
+						<th>Secondary</th>
+						<th>Accent 1</th>
+						<th>Accent 2</th>
+					</tr>
+					<tr>
+						<td class="primary">#396E94</td>
+						<td class="secondary">#E7C24F</td>
+						<td class="accent1">#A43312</td>
+						<td class="accent2">White</td>
+					</tr>
+				</tbody>
+			</table>
+ 
+			<h3>Typography</h3>
+			<p>
+				The heading font <strong>IM Fell French Canon SC</strong> was chosen for
+				its strong, classic character — it gives FitLog a bold, confident
+				identity that stands out without feeling overly sporty or corporate. The
+				paragraph font <strong>Lato</strong> pairs cleanly with it, keeping
+				instructional text and labels easy to read at a glance during a workout.
+				Primary blue is used for headlines on white backgrounds, and white text
+				is used on colored backgrounds for contrast and clarity.
+			</p>
+ 
+			<h4>Heading Font: IM Fell French Canon SC</h4>
+			<h4>Paragraph Font: Lato</h4>
+ 
+			<h3>Normal paragraph example</h3>
+			<p>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+				veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+				commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+				velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+				occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+				mollit anim id est laborum.
+			</p>
+ 
+			<h3>Colored paragraph example</h3>
+			<p class="colored">
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+				veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+				commodo consequat.
+			</p>
+ 
+			<h3>Navigation</h3>
+			<nav>
+				<a href="#">Home</a>
+				<a href="#">Workout</a>
+				<a href="#">Log</a>
+			</nav>
+			<hr />
+ 
+			<h2>Content</h2>
+ 
+			<h3>Home Page</h3>
+			<p>
+				The home page will open with a hero banner using the primary blue
+				background and the tagline <em>"Track it. Crush it. Repeat."</em> in the
+				heading font. Below that, a weekly workout schedule will be displayed as
+				a styled table showing each day of the week labeled as either a workout
+				day (with the exercise type, e.g. Upper Body, Legs, Cardio) or a rest
+				day. At the bottom of the page, a preview card will show today's planned
+				workout with a brief description and a prominent "Start Session" button
+				in the secondary gold color that links to the Workout page. Images will
+				include a motivational gym or dumbbell photo in the hero section.
+			</p>
+ 
+			<h3>Workout Page</h3>
+			<p>
+				The workout page is the interactive core of FitLog. At the top, the
+				current exercise name and a short description of proper form will be
+				displayed. Below that, the rep counter widget will show a large centered
+				number (starting at 0) flanked by a minus button on the left and a plus
+				button on the right, both styled in the primary blue. A gold "Log Set"
+				button sits below the counter — when clicked, it records the set to the
+				session log and starts the 60-second rest timer. The timer is displayed
+				as a large countdown number below the counter, turning accent red in the
+				final 10 seconds. At the bottom of the page, a session log table shows
+				each logged set with columns for Exercise, Set Number, Reps, and
+				Timestamp. A "Reset" button allows the user to clear the counter and
+				timer for a new exercise.
+			</p>
+ 
+			<h2>Wireframes</h2>
+ 
+			<h3>Home</h3>
+			<p>
+				The home page layout flows top to bottom: full-width header and nav,
+				then a full-width hero banner with centered tagline text and a
+				background image overlay, followed by a centered weekly schedule table,
+				and finally a centered today's workout card with the Start Session
+				button. The layout is single-column and designed to be readable on both
+				mobile and desktop.
+			</p>
+			<img src="wireframe1.jpeg" alt="home page wireframe" />
+ 
+			<h3>Workout Page</h3>
+			<p>
+				The workout page uses a centered single-column layout. The exercise name
+				sits at the top in a large heading. The rep counter widget is the visual
+				focal point — a very large number centered on the page with two large
+				circular buttons flanking it. The rest timer sits directly below in a
+				slightly smaller but still prominent size. The Log Set and Reset buttons
+				are full-width below the timer. The session log table fills the lower
+				portion of the page and scrolls as entries are added.
+			</p>
+			<img src="wireframe2.jpeg" alt="workout page wireframe" />
+		</main>
+	</body>
+</html>
+ 
