@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FitLog</title>
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+French+Canon+SC&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ── CSS Variables (color palette from site plan) ── */
+    :root {
+      --primary:   #396E94;
+      --secondary: #E7C24F;
+      --accent:    #A43312;
+      --dark:      #381D2A;
+      --light:     #AABD8C;
+      --white:     #FFFFFF;
+      --bg:        #F5F5F0;
+      --text:      #222222;
+      --muted:     #666666;
+      --border:    #DDDDDD;
+      --font-heading: 'IM Fell French Canon SC', serif;
+      --font-body:    'Lato', sans-serif;
+      --radius:    8px;
+      --shadow:    0 2px 12px rgba(0,0,0,0.10);
+    }
+
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.6;
+      padding-bottom: 75px; /* Keeps content from hiding behind mobile bottom nav */
+    }
+
+    h1, h2, h3 {
+      font-family: var(--font-heading);
+      color: var(--primary);
+      line-height: 1.2;
+    }
+
+    /* ── Mobile-First Navigation (Bottom Tab Bar) ── */
+    nav {
+      background: var(--primary);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 65px;
+      z-index: 100;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+    }
+
+    nav .logo { 
+      display: none; /* Hidden on mobile to save space */
+    }
+
+    nav a {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      border-top: 4px solid transparent; 
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    nav a:hover, nav a.active {
+      color: var(--white);
+      border-top-color: var(--secondary); /* Indicator on top for bottom nav */
+    }
+
+    /* ── Page visibility ── */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* ── Hero Banner ── */
+    .hero {
+      background-image: url('hero.jpg');
+      background-size: cover;
+      background-position: center;
+      color: var(--white);
+      padding: 3rem 1.5rem; /* Mobile default padding */
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Dark overlay so white text stays readable over the photo */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(20, 30, 40, 0.62);
+    }
+
+    .hero h1 {
+      color: var(--white);
+      font-size: 2.2rem; /* Mobile default size */
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    /* ── Touch-Friendly Buttons ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px; /* Apple's minimum touch target size */
+      padding: 0.75rem 2rem;
+      border-radius: var(--radius);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.15s, opacity 0.15s;
+      text-decoration: none;
+    }
+
+    .btn:hover { transform: translateY(-2px); opacity: 0.92; }
+    .btn:active { transform: translateY(0); }
+
+    .btn-secondary { background: var(--secondary); color: var(--dark); }
+    .btn-primary   { background: var(--primary); color: var(--white); }
+    .btn-accent    { background: var(--accent); color: var(--white); }
+    .btn-outline   { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
+
+    /* ── Container & Sections ── */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .section { padding: 3rem 0; }
+    .section-title { font-size: 1.8rem; margin-bottom: 1.5rem; text-align: center; }
+
+    /* ── Mobile-Friendly Tables ── */
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      -webkit-overflow-scrolling: touch; /* Smooth horizontal scrolling on iOS */
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--white);
+      font-size: 0.95rem;
+    }
+
+    th, td {
+      white-space: nowrap; /* Prevents text from squishing on small screens */
+    }
+
+    thead tr { background: var(--primary); color: var(--white); }
+    
+    thead th {
+      padding: 0.85rem 1.2rem;
+      text-align: left;
+      font-family: var(--font-heading);
+      font-weight: 400;
+      font-size: 1rem;
+    }
+
+    tbody tr { border-bottom: 1px solid var(--border); }
+    tbody tr:last-child { border-bottom: none; }
+
+    tbody td {
+      padding: 0.85rem 1.2rem;
+      vertical-align: middle;
+    }
+
+    .rest-row { background: #fafafa; color: var(--muted); }
+
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-workout { background: #E6F1FB; color: var(--primary); }
+    .badge-rest    { background: #f0f0f0; color: var(--muted); }
+
+    /* ── Today's Workout Card ── */
+    .today-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2rem;
+      border-left: 5px solid var(--secondary);
+      max-width: 480px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .today-card h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .today-card p { color: var(--muted); margin-bottom: 1.5rem; }
+
+    /* ── Workout Page ── */
+    .workout-layout {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    .exercise-header {
+      text-align: center;
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .exercise-header h2 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .exercise-header p  { color: var(--muted); }
+
+    /* ── Rep Counter ── */
+    .counter-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .counter-card h3 {
+      font-size: 1rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 1.2rem;
+    }
+
+    .counter-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .counter-btn {
+      width: 68px; /* Larger for thumb pressing */
+      height: 68px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: var(--white);
+      border: none;
+      font-size: 2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.1s, background 0.15s;
+      line-height: 1;
+    }
+
+    .counter-btn:hover  { background: #2d5a7a; transform: scale(1.07); }
+    .counter-btn:active { transform: scale(0.95); }
+
+    #rep-display {
+      font-family: var(--font-heading);
+      font-size: 3.5rem; /* Mobile default size */
+      color: var(--primary);
+      min-width: 120px;
+      line-height: 1;
+    }
+
+    /* ── Timer ── */
+    .timer-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      transition: border 0.3s;
+      border: 2px solid transparent;
+    }
+
+    .timer-card.urgent { border-color: var(--accent); }
+
+    .timer-card h3 {
+      font-size: 1rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.75rem;
+    }
+
+    #timer-display {
+      font-family: var(--font-heading);
+      font-size: 3.5rem;
+      color: var(--primary);
+      transition: color 0.3s;
+    }
+
+    #timer-display.urgent { color: var(--accent); }
+
+    #timer-label {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 0.25rem;
+    }
+
+    /* ── Action Buttons ── */
+    .action-row {
+      display: grid;
+      grid-template-columns: 1fr; /* Mobile Default: stacked vertically */
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .action-row .btn { width: 100%; }
+
+    /* ── Session Log Table ── */
+    .log-section h3 { font-size: 1.3rem; margin-bottom: 1rem; color: var(--primary); }
+    
+    .log-stats {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .stat-pill {
+      background: var(--primary);
+      color: var(--white);
+      padding: 0.4rem 1rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+    }
+
+    #log-empty {
+      text-align: center;
+      color: var(--muted);
+      padding: 2rem;
+      background: var(--white);
+      border-radius: var(--radius);
+      font-style: italic;
+    }
+
+    /* ═══════════════════════════════════════════
+       DESKTOP ENHANCEMENTS (Tablets & Up)
+    ═══════════════════════════════════════════ */
+    @media (min-width: 768px) {
+      body {
+        padding-bottom: 0; /* Remove padding since nav moves up */
+      }
+      
+      /* Restore elements to larger sizes */
+      .hero { padding: 5rem 2rem; }
+      .hero h1 { font-size: 3rem; }
+      #rep-display { font-size: 5rem; }
+      
+      /* Buttons go side-by-side on larger screens */
+      .action-row { grid-template-columns: 1fr 1fr; } 
+
+      /* Move Nav back to the top of the screen */
+      nav {
+        position: sticky;
+        top: 0;
+        bottom: auto;
+        justify-content: flex-start;
+        gap: 2rem;
+        padding: 0 2rem;
+        height: auto;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      }
+
+      nav .logo { 
+        display: block; 
+        font-family: var(--font-heading);
+        color: var(--white);
+        font-size: 1.4rem;
+        padding: 1rem 0;
+        letter-spacing: 1px;
+      }
+
+      nav a {
+        width: auto;
+        padding: 1.2rem 0.5rem;
+        border-top: none;
+        border-bottom: 3px solid transparent; 
+      }
+
+      nav a:hover, nav a.active {
+        border-top-color: transparent;
+        border-bottom-color: var(--secondary); /* Indicator moves back to bottom */
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       NAVIGATION
+  ═══════════════════════════════════════════ -->
+  <nav>
+    <span class="logo">FitLog</span>
+    <a href="#" class="active" onclick="showPage('home', this)">Home</a>
+    <a href="#" onclick="showPage('workout', this)">Workout</a>
+    <a href="#" onclick="showPage('log', this)">Log</a>
+  </nav>
+
+
+  <!-- ═══════════════════════════════════════════
+       HOME PAGE
+  ═══════════════════════════════════════════ -->
+  <div id="page-home" class="page active">
+
+    <div class="hero">
+      <h1>Track it. Crush it. Repeat.</h1>
+      <p>Your personal workout log — simple, fast, and distraction-free.</p>
+      <p>Tracking your workouts is a fundamental component of a successful fitness journey because it transforms random effort into structured progress, allowing you to see tangible evidence of your improvements, such as increased weights, more reps, or better endurance. By meticulously documenting your training, you create a necessary layer of accountability that fosters consistency, making it harder to skip sessions or repeat the same unchallenging routines. Furthermore, tracking allows you to identify performance plateaus and patterns, providing the data needed to optimize your routine for faster, more effective results while preventing injuries by highlighting when you may be overtraining. Ultimately, looking back at your logged progress serves as a powerful source of motivation, proving your dedication and highlighting your accomplishments even when day-to-day changes feel minimal</p>
+    </div>
+
+    <div class="container">
+
+      <!-- Weekly Schedule Section -->
+      <section class="section">
+        <h2 class="section-title">Weekly Schedule</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Day</th>
+                <th>Type</th>
+                <th>Exercise</th>
+                <th>Sets</th>
+                <th>Target Reps</th>
+              </tr>
+            </thead>
+            <tbody id="schedule-body">
+              <!-- Filled by renderSchedule() using forEach -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Today's Workout Card -->
+      <section class="section">
+        <h2 class="section-title">Today's Workout</h2>
+        <div id="today-card" class="today-card">
+          <!-- Filled by renderTodayCard() -->
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════
+       WORKOUT PAGE
+  ═══════════════════════════════════════════ -->
+  <div id="page-workout" class="page">
+    <div class="workout-layout">
+
+      <!-- Current Exercise Info -->
+      <div class="exercise-header" id="exercise-header">
+        <!-- Filled by renderWorkoutHeader() -->
+      </div>
+
+      <!-- Rep Counter -->
+      <div class="counter-card">
+        <h3>Reps this set</h3>
+        <div class="counter-row">
+          <button class="counter-btn" onclick="changeReps(-1)">&#8722;</button>
+          <div id="rep-display">0</div>
+          <button class="counter-btn" onclick="changeReps(+1)">&#43;</button>
+        </div>
+      </div>
+
+      <!-- Rest Timer -->
+      <div class="timer-card" id="timer-card">
+        <h3>Rest Timer</h3>
+        <div id="timer-display">60</div>
+        <div id="timer-label">Log a set to start the timer</div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-row">
+        <button class="btn btn-secondary" onclick="logSet()">Log Set</button>
+        <button class="btn btn-outline"   onclick="resetWorkout()">Reset</button>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════
+       LOG PAGE
+  ═══════════════════════════════════════════ -->
+  <div id="page-log" class="page">
+    <div class="container">
+      <section class="section">
+        <h2 class="section-title">Session Log</h2>
+
+        <div class="log-stats">
+          <span class="stat-pill" id="stat-sets">Sets: 0</span>
+          <span class="stat-pill" id="stat-reps">Total Reps: 0</span>
+        </div>
+
+        <div id="log-empty">No sets logged yet. Head to the Workout page to get started!</div>
+
+        <div class="table-wrap" id="log-table-wrap" style="display:none;">
+          <table>
+            <thead>
+              <tr>
+                <th>Exercise</th>
+                <th>Set #</th>
+                <th>Reps</th>
+                <th>Time</th>
+              </tr>
+            </thead>
+            <tbody id="log-body">
+              <!-- Filled by renderLog() -->
+            </tbody>
+          </table>
+        </div>
+
+      </section>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════
+       JAVASCRIPT
+  ═══════════════════════════════════════════ -->
+  <script>
+
+    const exercises = [
+      { id: "bicep-curl", name: "Bicep Curl", description: "Keep elbows close to your sides. Curl slowly.", sets: 3, targetReps: 12 },
+      { id: "squat", name: "Squat", description: "Feet shoulder-width apart. Keep chest up, knees over toes.", sets: 4, targetReps: 10 },
+      { id: "push-up", name: "Push-Up", description: "Keep your core tight. Lower chest to the floor.", sets: 3, targetReps: 15 },
+      { id: "lunge", name: "Lunge", description: "Step forward, lower back knee toward floor. Alternate legs.", sets: 3, targetReps: 12 },
+      { id: "plank", name: "Plank", description: "Hold a straight line from head to heels. Breathe steadily.", sets: 3, targetReps: 30 },
+      { id: "shoulder-press", name: "Shoulder Press", description: "Press dumbbells directly overhead. Don't arch your back.", sets: 3, targetReps: 10 }
+    ];
+
+    const schedule = [
+      { day: "Monday",    exerciseId: "bicep-curl",     isRest: false },
+      { day: "Tuesday",   exerciseId: "squat",          isRest: false },
+      { day: "Wednesday", exerciseId: null,             isRest: true  },
+      { day: "Thursday",  exerciseId: "push-up",        isRest: false },
+      { day: "Friday",    exerciseId: "lunge",          isRest: false },
+      { day: "Saturday",  exerciseId: "shoulder-press", isRest: false },
+      { day: "Sunday",    exerciseId: null,             isRest: true  }
+    ];
+
+    const sessionLog = [];
+
+    let currentReps  = 0;
+    let currentSet   = 1;
+    let timerSeconds = 60;
+    let timerInterval = null;
+
+    function getTodaySchedule() {
+      const dayNames = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+      const todayName = dayNames[new Date().getDay()];
+      return schedule.find(entry => entry.day === todayName);
+    }
+
+    function getExerciseFor(entry) {
+      if (!entry || entry.isRest) return null;
+      return exercises.find(ex => ex.id === entry.exerciseId);
+    }
+
+    function renderSchedule() {
+      const tbody = document.getElementById("schedule-body");
+      tbody.innerHTML = "";
+
+      schedule.forEach(function(entry) {
+        const exercise = getExerciseFor(entry);
+        const row = document.createElement("tr");
+        if (entry.isRest) row.classList.add("rest-row");
+
+        row.innerHTML = `
+          <td><strong>${entry.day}</strong></td>
+          <td>
+            <span class="badge ${entry.isRest ? 'badge-rest' : 'badge-workout'}">
+              ${entry.isRest ? "Rest" : "Workout"}
+            </span>
+          </td>
+          <td>${exercise ? exercise.name : "—"}</td>
+          <td>${exercise ? exercise.sets : "—"}</td>
+          <td>${exercise ? exercise.targetReps : "—"}</td>
+        `;
+
+        tbody.appendChild(row);
+      });
+    }
+
+    function renderTodayCard() {
+      const card = document.getElementById("today-card");
+      const todayEntry   = getTodaySchedule();
+      const todayExercise = getExerciseFor(todayEntry);
+
+      if (!todayEntry || todayEntry.isRest) {
+        card.innerHTML = `
+          <h3>Rest Day</h3>
+          <p>Today is ${todayEntry ? todayEntry.day : "a rest day"}. Take it easy — recovery matters!</p>
+          <span class="badge badge-rest" style="font-size:1rem;padding:0.5rem 1.2rem;">Rest Day</span>
+        `;
+      } else {
+        card.innerHTML = `
+          <h3>${todayExercise.name}</h3>
+          <p>${todayExercise.description}</p>
+          <p style="margin-bottom:1.5rem;font-weight:700;color:var(--primary);">
+            ${todayExercise.sets} sets &times; ${todayExercise.targetReps} reps
+          </p>
+          <button class="btn btn-secondary" onclick="showPage('workout', null)">
+            Start Session
+          </button>
+        `;
+      }
+    }
+
+    function renderWorkoutHeader() {
+      const header = document.getElementById("exercise-header");
+      const todayEntry    = getTodaySchedule();
+      const todayExercise = getExerciseFor(todayEntry);
+
+      if (!todayExercise) {
+        header.innerHTML = `
+          <h2>Rest Day</h2>
+          <p>No workout scheduled today. Enjoy your recovery!</p>
+        `;
+      } else {
+        header.innerHTML = `
+          <h2>${todayExercise.name}</h2>
+          <p>${todayExercise.description}</p>
+          <p style="margin-top:0.5rem;color:var(--primary);font-weight:700;">
+            Goal: ${todayExercise.sets} sets &times; ${todayExercise.targetReps} reps &nbsp;&bull;&nbsp;
+            Current set: <span id="set-display">${currentSet}</span>
+          </p>
+        `;
+      }
+    }
+
+    function changeReps(amount) {
+      currentReps += amount;
+      if (currentReps < 0) currentReps = 0;  
+      document.getElementById("rep-display").textContent = currentReps;
+    }
+
+    function logSet() {
+      const todayEntry    = getTodaySchedule();
+      const todayExercise = getExerciseFor(todayEntry);
+
+      if (!todayExercise) {
+        alert("No workout scheduled for today!");
+        return;
+      }
+
+      if (currentReps === 0) {
+        alert("Add at least 1 rep before logging a set.");
+        return;
+      }
+
+      const newSet = {
+        exercise:  todayExercise.name,
+        setNumber: currentSet,
+        reps:      currentReps,
+        timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+      };
+
+      sessionLog.push(newSet);
+
+      currentSet++;
+      currentReps = 0;
+      document.getElementById("rep-display").textContent = "0";
+
+      const setDisplay = document.getElementById("set-display");
+      if (setDisplay) setDisplay.textContent = currentSet;
+
+      startTimer();
+      renderLog();
+
+      alert(`Set logged! Rest for 60 seconds.`);
+    }
+
+    function startTimer() {
+      clearInterval(timerInterval);
+      timerSeconds = 60;
+      updateTimerDisplay();
+      document.getElementById("timer-label").textContent = "Resting...";
+
+      timerInterval = setInterval(function() {
+        timerSeconds--;
+        updateTimerDisplay();
+
+        if (timerSeconds <= 0) {
+          clearInterval(timerInterval);
+          document.getElementById("timer-label").textContent = "Rest complete! Start your next set.";
+          document.getElementById("timer-card").classList.remove("urgent");
+          document.getElementById("timer-display").classList.remove("urgent");
+          timerSeconds = 60;
+          updateTimerDisplay();
+        }
+      }, 1000);
+    }
+
+    function updateTimerDisplay() {
+      const display  = document.getElementById("timer-display");
+      const card     = document.getElementById("timer-card");
+      display.textContent = timerSeconds;
+
+      if (timerSeconds <= 10 && timerSeconds > 0) {
+        display.classList.add("urgent");
+        card.classList.add("urgent");
+      } else {
+        display.classList.remove("urgent");
+        card.classList.remove("urgent");
+      }
+    }
+
+    function resetWorkout() {
+      clearInterval(timerInterval);
+      currentReps  = 0;
+      currentSet   = 1;
+      timerSeconds = 60;
+      document.getElementById("rep-display").textContent = "0";
+      document.getElementById("timer-display").textContent = "60";
+      document.getElementById("timer-label").textContent  = "Log a set to start the timer";
+      document.getElementById("timer-card").classList.remove("urgent");
+      document.getElementById("timer-display").classList.remove("urgent");
+      renderWorkoutHeader();
+    }
+
+    function renderLog() {
+      const tbody   = document.getElementById("log-body");
+      const empty   = document.getElementById("log-empty");
+      const wrap    = document.getElementById("log-table-wrap");
+
+      if (sessionLog.length === 0) {
+        empty.style.display = "block";
+        wrap.style.display  = "none";
+      } else {
+        empty.style.display = "none";
+        wrap.style.display  = "block";
+        tbody.innerHTML = "";
+
+        sessionLog.forEach(function(entry) {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${entry.exercise}</td>
+            <td>${entry.setNumber}</td>
+            <td><strong>${entry.reps}</strong></td>
+            <td>${entry.timestamp}</td>
+          `;
+          tbody.appendChild(row);
+        });
+      }
+
+      const totalReps = sessionLog.reduce(function(sum, entry) {
+        return sum + entry.reps;
+      }, 0);
+
+      document.getElementById("stat-sets").textContent = "Sets: " + sessionLog.length;
+      document.getElementById("stat-reps").textContent = "Total Reps: " + totalReps;
+    }
+
+    function showPage(pageName, clickedLink) {
+      document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+      document.getElementById("page-" + pageName).classList.add("active");
+
+      document.querySelectorAll("nav a").forEach(a => a.classList.remove("active"));
+      
+      // If no link was clicked (e.g., accessed via "Start Session" button), manually highlight correct Nav item
+      if (clickedLink) {
+        clickedLink.classList.add("active");
+      } else {
+        document.querySelector(`nav a[onclick*="${pageName}"]`).classList.add("active");
+      }
+
+      window.scrollTo(0, 0);
+    }
+
+    renderSchedule();
+    renderTodayCard();
+    renderWorkoutHeader();
+    renderLog();
+
+  </script>
+</body>
+</html>

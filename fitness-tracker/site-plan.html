@@ -34,14 +34,7 @@
  
 			<h3>Dynamic elements</h3>
 			<p>
-				JavaScript will power two core interactive features. First, a
-				<strong>live rep counter</strong> with plus and minus buttons that
-				tracks reps per set and keeps a running session total, with a "Log Set"
-				button that records the result to a session table. Second, a
-				<strong>live countdown rest timer</strong> that automatically starts
-				when a set is logged, counting down from 60 seconds and turning red
-				during the final 10 seconds to signal urgency. A reset button will
-				clear both the counter and timer for the next exercise.
+				JavaScript will power the core interactive features using structured data and array methods. Each exercise will be stored as an object containing properties like name, description, sets, and targetReps, and the full weekly workout schedule will be stored as an array of these objects. Array methods will drive the UI: forEach will render the weekly schedule table on the home page by iterating over each day's workout, map will transform the exercise array into HTML card elements for display, filter will be used to separate rest days from active workout days, and reduce will calculate session totals such as total reps completed across all logged sets. On the workout page, a live rep counter with plus and minus buttons tracks reps per set and keeps a running session total, with a "Log Set" button that pushes a new set object into the session log array and records it to a session table. A live countdown rest timer automatically starts when a set is logged, counting down from 60 seconds and turning red during the final 10 seconds to signal urgency. A reset button clears both the counter and timer for the next exercise.
 			</p>
  
 			<hr />
