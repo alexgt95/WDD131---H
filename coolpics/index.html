@@ -5,16 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cool Pics</title>
   <link rel="stylesheet" href="styles.css" />
+  <script defer src="coolpics.js"></script>
 </head>
 <body>
  
   <header>
     <h1>Cool Pics 📷</h1>
     <nav>
-      <!-- Hamburger menu -->
       <button class="menu-btn">Menu</button>
-      <!-- Desktop nav links -->
-      <ul class="nav-links">
+      <!-- Added 'hide' class for mobile default -->
+      <ul class="nav-links hide">
         <li><a href="#">Home</a></li>
         <li><a href="#">People</a></li>
         <li><a href="#">Places</a></li>
@@ -25,18 +25,16 @@
   </header>
  
   <main>
-    <h2>Current Work</h2>
-    <div class="grid">
-      <img src="norris-sm.jpg" alt="Norris Geyser Basin" />
-      <img src="norris-sm.jpg" alt="Norris Geyser Basin" />
-      <img src="norris-sm.jpg" alt="Norris Geyser Basin" />
-      <img src="norris-sm.jpg" alt="Norris Geyser Basin" />
-      <img src="norris-sm.jpg" alt="Norris Geyser Basin" />
-      <img src="norris-sm.jpg" alt="Norris Geyser Basin" />
-      <img src="norris-sm.jpg" alt="Norris Geyser Basin" />
-      <img src="norris-sm.jpg" alt="Norris Geyser Basin" />
-      <img src="norris-sm.jpg" alt="Norris Geyser Basin" />
-    </div>
+    <h2>Gallery</h2>
+    <section class="gallery">
+      <figure><img src="norris-sm.jpg" alt="Norris Geyser Basin" /></figure>
+      <figure><img src="norris-sm.jpg" alt="Norris Geyser Basin" /></figure>
+      <figure><img src="norris-sm.jpg" alt="Norris Geyser Basin" /></figure>
+      <figure><img src="norris-sm.jpg" alt="Norris Geyser Basin" /></figure>
+      <figure><img src="norris-sm.jpg" alt="Norris Geyser Basin" /></figure>
+      <figure><img src="norris-sm.jpg" alt="Norris Geyser Basin" /></figure>
+    </section>
+    <!-- Static <dialog> removed because JS now creates it dynamically -->
   </main>
  
   <footer>
@@ -45,4 +43,3 @@
  
 </body>
 </html>
- 
