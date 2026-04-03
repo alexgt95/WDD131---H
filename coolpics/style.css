@@ -1,26 +1,116 @@
-/* Mobile First Styles */
-img {
-  width: 100%; /* Responsive width */
-  max-width: 300px; 
-  height: 300px;
-  object-fit: cover; /* Keeps aspect ratio, clips edges */
-  display: block;
-  margin: 10px auto;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-/* Hide navigation links on mobile as per instructions */
-nav ul {
+body {
+  background-color: #d3d3d3;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  background-color: #4a7fd4;
+  color: white;
+  text-align: center;
+  padding: 10px;
+}
+
+header h1 {
+  font-size: 1.4rem;
+  margin-bottom: 6px;
+}
+
+/*  Mobile Menu Button  */
+.menu-btn {
+  background-color: #4a7fd4;
+  color: white;
+  border: 2px solid white;
+  padding: 6px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/*  Desktop Nav Links  */
+.nav-links {
   display: none;
+  list-style: none;
+  justify-content: center;
+  gap: 20px;
 }
 
-@media screen and (min-width: 700px) {
-  nav ul {
-    display: flex; /* Show menu on larger screens */
-    list-style: none;
-    gap: 20px;
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.nav-links a:hover {
+  text-decoration: underline;
+}
+
+main {
+  padding: 16px;
+}
+
+main h2 {
+  text-align: center;
+  margin-bottom: 12px;
+  font-size: 1.1rem;
+}
+
+/*  Image Grid  */
+.grid {
+  display: grid;
+  gap: 10px;
+
+  /* Mobile: 1 column */
+  grid-template-columns: 1fr;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.grid img {
+  width: 100%;
+  display: block;
+  border: 3px solid white;
+}
+
+footer {
+  background-color: #4a7fd4;
+  color: white;
+  text-align: center;
+  padding: 8px;
+  font-size: 0.85rem;
+  margin-top: 16px;
+}
+
+/*  Tablet: 2 columns  */
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
   }
-  
-  #menu-button {
-    display: none; /* Hide toggle button on desktop */
+}
+
+/*  Desktop */
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    margin: 0 auto;
+  }
+
+  .menu-btn {
+    display: none;
+  }
+
+  .nav-links {
+    display: flex;
   }
 }
