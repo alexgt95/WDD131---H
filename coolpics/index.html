@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cool Pics</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="style.css" />
   <script defer src="coolpics.js"></script>
 </head>
 <body>
@@ -13,7 +13,6 @@
     <h1>Cool Pics 📷</h1>
     <nav>
       <button class="menu-btn">Menu</button>
-      <!-- Added 'hide' class for mobile default -->
       <ul class="nav-links hide">
         <li><a href="#">Home</a></li>
         <li><a href="#">People</a></li>
@@ -34,7 +33,11 @@
       <figure><img src="norris-sm.jpg" alt="Norris Geyser Basin" /></figure>
       <figure><img src="norris-sm.jpg" alt="Norris Geyser Basin" /></figure>
     </section>
-    <!-- Static <dialog> removed because JS now creates it dynamically -->
+
+    <dialog>
+      <button class="close-viewer">✕</button>
+      <img src="" alt="" />
+    </dialog>
   </main>
  
   <footer>

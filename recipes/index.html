@@ -3,6 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Shane Thompson" />
+    <meta name="description" content="Find delicious recipes for every occasion." />
     <title>RecipeBook</title>
 
     <meta property="og:type" content="website" />
@@ -15,7 +17,7 @@
     <meta name="twitter:description" content="Find delicious recipes" />
     <meta name="twitter:image" content="social-preview-image.png" />
 
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" href="favicon.ico" />
     <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -34,13 +36,13 @@
       <span class="logo-text">RecipeBook</span>
     </header>
 
-    <div class="search-wrapper">
+    <form class="search-wrapper" onsubmit="return false;">
       <label for="search" class="visually-hidden">Enter Search</label>
       <input id="search" type="text" placeholder="Find a recipe" />
-      <button class="search-btn" aria-label="Search">
+      <button type="submit" class="search-btn" aria-label="Search">
         <img src="images/search.svg" alt="" />
       </button>
-    </div>
+    </form>
 
     <div id="recipe-container"></div>
 

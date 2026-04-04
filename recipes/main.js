@@ -1,4 +1,3 @@
-
 const recipes = [
 	{
 		author: 'Provo High Culinary Students',
@@ -279,7 +278,7 @@ const recipes = [
 		recipeYield: '12 servings',
 		rating: 4
 	}
-]            
+]
 
 function buildStars(rating, max = 5) {
   let html = '<span class="recipe-card__stars" role="img" aria-label="Rating: ' + rating + ' out of ' + max + ' stars">';
@@ -324,11 +323,11 @@ function renderRecipes(list) {
   container.innerHTML = list.map(buildCard).join("");
 }
 
-document.querySelector(".search-btn").addEventListener("click", function () {
+document.querySelector(".search-wrapper").addEventListener("submit", function () {
   const query = document.getElementById("search").value.trim().toLowerCase();
 
   if (!query) {
-    renderRecipes(recipes);
+    renderRecipes([...recipes].sort((a, b) => a.name.localeCompare(b.name)));
     return;
   }
 
@@ -338,7 +337,8 @@ document.querySelector(".search-btn").addEventListener("click", function () {
     return inName || inTags;
   });
 
-  renderRecipes(filtered);
+  renderRecipes([...filtered].sort((a, b) => a.name.localeCompare(b.name)));
 });
 
-renderRecipes(recipes);
+const randomRecipe = recipes[Math.floor(Math.random() * recipes.length)];
+renderRecipes([randomRecipe]);
